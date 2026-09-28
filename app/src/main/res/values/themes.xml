@@ -1,69 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.FITCORE" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/neon_cyan</item>
-        <item name="colorPrimaryVariant">@color/neon_cyan_dark</item>
+
+    <!-- ============ TEMA BASE ============ -->
+    <style name="Theme.FITCORE" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/volt</item>
         <item name="colorOnPrimary">@color/black</item>
-        <item name="colorSecondary">@color/neon_purple</item>
-        <item name="colorSecondaryVariant">@color/neon_purple_dark</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <item name="android:windowBackground">@color/bg_primary</item>
-        <item name="android:statusBarColor">@color/status_bar</item>
-        <item name="android:navigationBarColor">@color/nav_bar</item>
-        <item name="android:textColorPrimary">@color/text_primary</item>
-        <item name="android:textColorSecondary">@color/text_secondary</item>
-        <item name="colorSurface">@color/bg_secondary</item>
-        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="colorPrimaryContainer">@color/volt_soft</item>
+        <item name="colorOnPrimaryContainer">@color/volt</item>
+        <item name="colorSecondary">@color/violet</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondaryContainer">@color/volt</item>
+        <item name="colorOnSecondaryContainer">@color/black</item>
+        <item name="colorTertiary">@color/flame</item>
         <item name="colorError">@color/difficulty_advanced</item>
         <item name="colorOnError">@color/white</item>
+
+        <item name="android:colorBackground">@color/bg_primary</item>
+        <item name="colorOnBackground">@color/text_primary</item>
+        <item name="colorSurface">@color/bg_secondary</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="colorSurfaceVariant">@color/bg_card</item>
+        <item name="colorOnSurfaceVariant">@color/text_secondary</item>
+        <item name="colorSurfaceContainerLowest">@color/bg_primary</item>
+        <item name="colorSurfaceContainerLow">@color/bg_secondary</item>
+        <item name="colorSurfaceContainer">@color/bg_card</item>
+        <item name="colorSurfaceContainerHigh">@color/bg_card_hover</item>
+        <item name="colorSurfaceContainerHighest">@color/bg_elevated</item>
+        <item name="colorOutline">@color/divider</item>
+        <item name="colorOutlineVariant">@color/divider</item>
+
+        <item name="android:windowBackground">@color/bg_primary</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="android:textColorHint">@color/text_tertiary</item>
+        <item name="android:windowAnimationStyle">@style/FitCore.ActivityAnimation</item>
+
+        <item name="materialAlertDialogTheme">@style/FitCore.Dialog</item>
+        <item name="bottomSheetDialogTheme">@style/FitCore.BottomSheetDialog</item>
+        <item name="textInputStyle">@style/FitCore.TextInput</item>
     </style>
 
-    <style name="FitCoreCardView" parent="Widget.MaterialComponents.CardView">
-        <item name="cardBackgroundColor">@color/bg_card</item>
-        <item name="cardCornerRadius">16dp</item>
-        <item name="cardElevation">0dp</item>
-        <item name="strokeWidth">1dp</item>
-        <item name="strokeColor">@color/divider</item>
+    <!-- Transiciones entre pantallas -->
+    <style name="FitCore.ActivityAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/screen_open_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/screen_open_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/screen_close_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/screen_close_exit</item>
     </style>
 
-    <style name="FitCoreSearchView" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="android:background">@drawable/bg_search</item>
-        <item name="android:textColorHint">@color/text_secondary</item>
+    <!-- ============ DIÁLOGOS ============ -->
+    <style name="FitCore.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="colorSurface">@color/bg_card</item>
+        <item name="colorSurfaceContainerHigh">@color/bg_card</item>
+        <item name="colorPrimary">@color/volt</item>
+        <item name="shapeAppearanceOverlay">@style/FitCore.Shape.Large</item>
+        <item name="android:windowAnimations">@style/FitCore.DialogAnimation</item>
     </style>
 
-    <style name="FitCoreHeadline" parent="TextAppearance.MaterialComponents.Headline5">
+    <style name="FitCore.DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/dialog_exit</item>
+    </style>
+
+    <style name="FitCore.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/FitCore.BottomSheet</item>
+        <item name="android:navigationBarColor">@color/bg_secondary</item>
+    </style>
+
+    <style name="FitCore.BottomSheet" parent="Widget.Material3.BottomSheet.Modal">
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="FitCore.Shape.Large" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">28dp</item>
+    </style>
+
+    <!-- ============ TIPOGRAFÍA ============ -->
+    <style name="FitCore.Text.Display" parent="TextAppearance.Material3.DisplaySmall">
+        <item name="android:fontFamily">sans-serif-black</item>
         <item name="android:textColor">@color/text_primary</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">40sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 
-    <style name="FitCoreTitle" parent="TextAppearance.MaterialComponents.Headline6">
+    <style name="FitCore.Text.Headline" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:fontFamily">sans-serif-black</item>
         <item name="android:textColor">@color/text_primary</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:letterSpacing">-0.02</item>
     </style>
 
-    <style name="FitCoreBody" parent="TextAppearance.MaterialComponents.Body1">
+    <style name="FitCore.Text.Title" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="FitCore.Text.Label" parent="TextAppearance.Material3.LabelSmall">
+        <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textColor">@color/text_secondary</item>
-    </style>
-
-    <style name="FitCoreCaption" parent="TextAppearance.MaterialComponents.Caption">
-        <item name="android:textColor">@color/text_accent</item>
         <item name="android:textSize">11sp</item>
-        <item name="android:letterSpacing">0.05</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.14</item>
     </style>
 
-    <style name="FitCoreChip" parent="Widget.MaterialComponents.Chip.Choice">
-        <item name="chipBackgroundColor">@color/bg_card</item>
-        <item name="chipStrokeWidth">1dp</item>
-        <item name="chipStrokeColor">@color/divider</item>
-        <item name="checkedIconVisible">false</item>
+    <style name="FitCore.Text.Body" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">3dp</item>
+    </style>
+
+    <style name="FitCore.Text.Number" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:fontFamily">sans-serif-black</item>
         <item name="android:textColor">@color/text_primary</item>
-        <item name="chipCornerRadius">20dp</item>
-        <item name="chipMinHeight">36dp</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:letterSpacing">-0.02</item>
     </style>
 
-    <style name="FitCoreChip.Active">
-        <item name="chipBackgroundColor">@color/neon_cyan</item>
-        <item name="chipStrokeColor">@color/neon_cyan</item>
+    <!-- ============ BOTONES ============ -->
+    <style name="FitCore.Button.Primary" parent="Widget.Material3.Button">
+        <item name="android:layout_height">60dp</item>
         <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif-black</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="backgroundTint">@color/volt</item>
+        <item name="iconTint">@color/black</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">10dp</item>
+        <item name="cornerRadius">30dp</item>
+        <item name="rippleColor">#33000000</item>
+        <item name="android:stateListAnimator">@animator/press_scale</item>
+    </style>
+
+    <style name="FitCore.Button.Ghost" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:layout_height">56dp</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="strokeColor">@color/divider</item>
+        <item name="strokeWidth">1.5dp</item>
+        <item name="iconTint">@color/text_primary</item>
+        <item name="iconGravity">textStart</item>
+        <item name="cornerRadius">28dp</item>
+        <item name="rippleColor">@color/ripple</item>
+        <item name="android:stateListAnimator">@animator/press_scale</item>
+    </style>
+
+    <style name="FitCore.Button.Danger" parent="FitCore.Button.Ghost">
+        <item name="android:textColor">@color/difficulty_advanced</item>
+        <item name="strokeColor">#40FF4D5E</item>
+        <item name="iconTint">@color/difficulty_advanced</item>
+    </style>
+
+    <style name="FitCore.Button.Segment" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:layout_height">52dp</item>
+        <item name="android:textColor">@color/segment_text</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">14sp</item>
+        <item name="backgroundTint">@color/segment_bg</item>
+        <item name="strokeColor">@color/divider</item>
+        <item name="cornerRadius">16dp</item>
+        <item name="rippleColor">@color/ripple</item>
+    </style>
+
+    <!-- ============ CAMPOS DE TEXTO ============ -->
+    <style name="FitCore.TextInput" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">@color/bg_card</item>
+        <item name="boxStrokeColor">@color/input_stroke</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">1.5dp</item>
+        <item name="boxCornerRadiusTopStart">18dp</item>
+        <item name="boxCornerRadiusTopEnd">18dp</item>
+        <item name="boxCornerRadiusBottomStart">18dp</item>
+        <item name="boxCornerRadiusBottomEnd">18dp</item>
+        <item name="hintTextColor">@color/volt</item>
+        <item name="android:textColorHint">@color/text_secondary</item>
+        <item name="startIconTint">@color/input_icon</item>
+        <item name="endIconTint">@color/text_secondary</item>
+        <item name="cursorColor">@color/volt</item>
+    </style>
+
+    <style name="FitCore.NavLabel" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <!-- ============ CHIPS ============ -->
+    <style name="FitCore.Chip" parent="Widget.Material3.Chip.Filter">
+        <item name="chipBackgroundColor">@color/chip_bg</item>
+        <item name="android:textColor">@color/chip_text</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="checkedIconVisible">false</item>
+        <item name="chipCornerRadius">20dp</item>
+        <item name="chipMinHeight">40dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="chipStartPadding">10dp</item>
+        <item name="chipEndPadding">10dp</item>
+        <item name="rippleColor">@color/ripple</item>
     </style>
 </resources>

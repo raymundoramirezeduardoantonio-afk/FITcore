@@ -7,7 +7,10 @@ import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
+import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.example.fitcore.db.AppDatabase
 import com.example.fitcore.ui.catalog.CatalogFragment
@@ -53,6 +56,18 @@ class MainActivity : AppCompatActivity() {
             v.updatePadding(top = bars.top)
             insets
         }
+
+        // La barra flotante se separa de la barra de navegación del sistema
+        val navContainer = findViewById<View>(R.id.navContainer)
+        val baseMargin = (16 * resources.displayMetrics.density).toInt()
+        ViewCompat.setOnApplyWindowInsetsListener(navContainer) { v, insets ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.updateLayoutParams<ViewGroup.MarginLayoutParams> { bottomMargin = baseMargin + bars.bottom }
+            insets
+        }
+        navContainer.translationY = 300f
+        navContainer.animate().translationY(0f).setStartDelay(250).setDuration(600)
+            .setInterpolator(android.view.animation.OvershootInterpolator(1.1f)).start()
 
         if (savedInstanceState == null) {
             // Primera vez, creamos instancias
@@ -107,11 +122,22 @@ class MainActivity : AppCompatActivity() {
     private fun switchFragment(target: Fragment) {
         if (target == activeFragment) return
         val transaction = supportFragmentManager.beginTransaction()
-            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+            .setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit)
         
         activeFragment?.let { transaction.hide(it) }
         transaction.show(target).commit()
 
         activeFragment = target
+    }
+
+    /** Cambia de pestaña desde cualquier fragmento. */
+    fun navigateTo(itemId: Int) {
+        findViewById<BottomNavigationView>(R.id.bottomNav)?.selectedItemId = itemId
+    }
+
+    /** Abre el catálogo filtrado por un grupo muscular. */
+    fun openCatalog(group: String) {
+        navigateTo(R.id.nav_catalog)
+        catalogFragment.selectGroup(group)
     }
 }
