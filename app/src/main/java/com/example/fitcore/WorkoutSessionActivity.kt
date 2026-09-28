@@ -17,6 +17,7 @@ import com.google.android.material.progressindicator.LinearProgressIndicator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Calendar
 
 class WorkoutSessionActivity : AppCompatActivity() {
 
@@ -120,19 +121,41 @@ class WorkoutSessionActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             val db = AppDatabase.getDatabase(applicationContext)
             val user = db.routineDao().getLoggedInUser()
-            user?.let {
-                // Dar 50 XP por terminar la rutina
-                db.routineDao().addXpToUser(it.id, 50)
-                
-                // Actualizar racha
+            if (user != null) {
                 val now = System.currentTimeMillis()
-                db.routineDao().updateStreak(it.id, it.streakDays + 1, now)
+                val newXp = user.xp + 50
+                db.routineDao().saveUserProfile(
+                    user.copy(
+                        xp = newXp,
+                        level = (newXp / 200) + 1,
+                        streakDays = nextStreakDays(user.lastWorkoutTimestamp, now, user.streakDays),
+                        lastWorkoutTimestamp = now,
+                        workoutsCompleted = user.workoutsCompleted + 1
+                    )
+                )
             }
-            
+
             withContext(Dispatchers.Main) {
                 Toast.makeText(this@WorkoutSessionActivity, "¡Entrenamiento completado! +50 XP", Toast.LENGTH_LONG).show()
                 finish()
             }
         }
+    }
+
+    private fun nextStreakDays(lastWorkoutTimestamp: Long, now: Long, currentStreak: Int): Int {
+        if (lastWorkoutTimestamp <= 0L) return 1
+        val last = Calendar.getInstance().apply { timeInMillis = lastWorkoutTimestamp }
+        val today = Calendar.getInstance().apply { timeInMillis = now }
+        if (isSameCalendarDay(last, today)) return currentStreak
+        val yesterday = Calendar.getInstance().apply {
+            timeInMillis = now
+            add(Calendar.DAY_OF_YEAR, -1)
+        }
+        return if (isSameCalendarDay(last, yesterday)) currentStreak + 1 else 1
+    }
+
+    private fun isSameCalendarDay(a: Calendar, b: Calendar): Boolean {
+        return a.get(Calendar.YEAR) == b.get(Calendar.YEAR) &&
+            a.get(Calendar.DAY_OF_YEAR) == b.get(Calendar.DAY_OF_YEAR)
     }
 }

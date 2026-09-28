@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.fitcore.LoginActivity
 import com.example.fitcore.R
+import com.example.fitcore.agent.RoutineAgents
+import com.example.fitcore.agent.RoutinePlanMode
 import com.example.fitcore.db.AppDatabase
 import com.example.fitcore.db.RoutineEntity
 import com.example.fitcore.db.RoutineExerciseEntity
@@ -154,38 +156,35 @@ class ProfileFragment : Fragment() {
 
         lifecycleScope.launch {
             val db = AppDatabase.getDatabase(requireContext())
-            
-            val (routineName, exercises) = when (bodyType) {
-                "Ectomorfo" -> "Volumen Ecto-Máximo" to listOf(
-                    RoutineExerciseEntity(routineId = 0, exerciseId = 1, sets = 3, reps = 6, restSeconds = 120, orderIndex = 0), // Press Banca
-                    RoutineExerciseEntity(routineId = 0, exerciseId = 11, sets = 3, reps = 6, restSeconds = 120, orderIndex = 1), // Sentadilla
-                    RoutineExerciseEntity(routineId = 0, exerciseId = 16, sets = 3, reps = 8, restSeconds = 90, orderIndex = 2),  // Press Militar
-                    RoutineExerciseEntity(routineId = 0, exerciseId = 21, sets = 3, reps = 8, restSeconds = 90, orderIndex = 3)   // Curl Bicep
-                )
-                "Mesomorfo" -> "Potencia Meso-Estética" to listOf(
-                    RoutineExerciseEntity(routineId = 0, exerciseId = 1, sets = 4, reps = 10, restSeconds = 90, orderIndex = 0),
-                    RoutineExerciseEntity(routineId = 0, exerciseId = 9, sets = 4, reps = 10, restSeconds = 90, orderIndex = 1),
-                    RoutineExerciseEntity(routineId = 0, exerciseId = 12, sets = 4, reps = 12, restSeconds = 90, orderIndex = 2),
-                    RoutineExerciseEntity(routineId = 0, exerciseId = 20, sets = 3, reps = 10, restSeconds = 60, orderIndex = 3),
-                    RoutineExerciseEntity(routineId = 0, exerciseId = 24, sets = 3, reps = 12, restSeconds = 60, orderIndex = 4)
-                )
-                else -> "Definición Endo-Fit" to listOf(
-                    RoutineExerciseEntity(routineId = 0, exerciseId = 2, sets = 4, reps = 15, restSeconds = 45, orderIndex = 0),
-                    RoutineExerciseEntity(routineId = 0, exerciseId = 14, sets = 4, reps = 15, restSeconds = 45, orderIndex = 1),
-                    RoutineExerciseEntity(routineId = 0, exerciseId = 28, sets = 4, reps = 20, restSeconds = 30, orderIndex = 2),
-                    RoutineExerciseEntity(routineId = 0, exerciseId = 29, sets = 3, reps = 20, restSeconds = 30, orderIndex = 3),
-                    RoutineExerciseEntity(routineId = 0, exerciseId = 27, sets = 3, reps = 60, restSeconds = 30, orderIndex = 4)
-                )
-            }
+            val user = db.routineDao().getLoggedInUser() ?: return@launch
+            val height = etHeight.text.toString().toFloatOrNull() ?: user.height
+            val weight = etWeight.text.toString().toFloatOrNull() ?: user.weight
+            val snapshot = user.copy(bodyType = bodyType, height = height, weight = weight)
+            val plan = RoutineAgents.create().plan(snapshot, RoutinePlanMode.Suggested)
 
             val routineId = db.routineDao().insertRoutine(
-                RoutineEntity(name = routineName, description = "Rutina generada según tu biotipo $bodyType")
+                RoutineEntity(
+                    userId = user.id,
+                    name = plan.name,
+                    description = plan.description,
+                    isGenerated = true
+                )
             )
 
-            val finalExercises = exercises.map { it.copy(routineId = routineId) }
-            db.routineDao().insertRoutineExercises(finalExercises)
+            val exercises = plan.exercises.map { planned ->
+                RoutineExerciseEntity(
+                    routineId = routineId,
+                    exerciseId = planned.exerciseId,
+                    sets = planned.sets,
+                    reps = planned.reps,
+                    restSeconds = planned.restSeconds,
+                    orderIndex = planned.orderIndex,
+                    dayLabel = planned.dayLabel
+                )
+            }
+            db.routineDao().insertRoutineExercises(exercises)
 
-            Toast.makeText(context, "¡Rutina '$routineName' creada!", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "¡Rutina '${plan.name}' creada!", Toast.LENGTH_LONG).show()
         }
     }
 
