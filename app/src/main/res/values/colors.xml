@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Colores base que cambian según el tema -->
+    <color name="neon_cyan">#00E676</color>
+    <color name="neon_cyan_dark">#00C853</color>
+    <color name="neon_cyan_light">#69F0AE</color>
+    <color name="neon_purple">#7986CB</color>
+    <color name="neon_purple_dark">#5C6BC0</color>
+
+    <!-- Colores específicos del modo claro (por defecto) -->
+    <color name="bg_primary">#F8F9FA</color>
+    <color name="bg_secondary">#FFFFFF</color>
+    <color name="bg_card">#FFFFFF</color>
+    <color name="bg_card_hover">#F1F3F5</color>
+    <color name="text_primary">#212529</color>
+    <color name="text_secondary">#6C757D</color>
+    <color name="text_accent">#00E676</color>
+    <color name="divider">#E9ECEF</color>
+    <color name="ripple">#1100E676</color>
+
+    <color name="status_bar">#F8F9FA</color>
+    <color name="nav_bar">#FFFFFF</color>
+    <color name="bg_bottom_fade_start">#FFF8F9FA</color>
+    <color name="bg_bottom_fade_end">#00F8F9FA</color>
+
+    <!-- Grupos Musculares -->
+    <color name="tag_chest">#00E676</color>
+    <color name="tag_back">#00B0FF</color>
+    <color name="tag_legs">#FF5252</color>
+    <color name="tag_shoulders">#FFAB40</color>
+    <color name="tag_arms">#7C4DFF</color>
+    <color name="tag_core">#F06292</color>
+
+    <color name="difficulty_beginner">#00E676</color>
+    <color name="difficulty_intermediate">#FFD600</color>
+    <color name="difficulty_advanced">#FF1744</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+</resources>

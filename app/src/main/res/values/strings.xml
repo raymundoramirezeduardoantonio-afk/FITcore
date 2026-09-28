@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FITCORE</string>
+    <string name="search_hint">Buscar ejercicios…</string>
+    <string name="tab_all">Todos</string>
+    <string name="tab_chest">Pecho</string>
+    <string name="tab_back">Espalda</string>
+    <string name="tab_legs">Piernas</string>
+    <string name="tab_shoulders">Hombros</string>
+    <string name="tab_arms">Brazos</string>
+    <string name="tab_core">Core</string>
+    <string name="difficulty_beginner">Principiante</string>
+    <string name="difficulty_intermediate">Intermedio</string>
+    <string name="difficulty_advanced">Avanzado</string>
+    <string name="no_exercises">No se encontraron ejercicios</string>
+    <string name="welcome_title">Bienvenido a FITCORE</string>
+    <string name="welcome_subtitle">Tu catálogo de ejercicios</string>
+    <string name="equipment_required">Equipo: %s</string>
+    <string name="muscle_group">Grupo muscular: %s</string>
+</resources>

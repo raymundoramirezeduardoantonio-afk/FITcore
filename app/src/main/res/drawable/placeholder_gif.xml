@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/bg_card" />
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+    <item
+        android:left="40dp"
+        android:top="40dp"
+        android:right="40dp"
+        android:bottom="40dp">
+        <vector
+            android:width="48dp"
+            android:height="48dp"
+            android:viewportWidth="24"
+            android:viewportHeight="24">
+            <path
+                android:fillColor="#FF424242"
+                android:pathData="M21,3H3C1.9,3 1,3.9 1,5v14c0,1.1 0.9,2 2,2h18c1.1,0 2,-0.9 2,-2V5C23,3.9 22.1,3 21,3zM21,19H3V5h18V19zM4,15h13v-2H4V15zM4,11h9V9H4V11z" />
+            <path
+                android:fillColor="#FF00E5FF"
+                android:pathData="M18,8l3,-3v6z"
+                android:strokeColor="#FF00E5FF"
+                android:strokeWidth="0.5" />
+        </vector>
+    </item>
+</layer-list>

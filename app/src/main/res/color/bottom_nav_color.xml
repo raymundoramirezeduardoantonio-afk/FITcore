@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/neon_cyan" android:state_checked="true" />
+    <item android:color="@color/text_secondary" />
+    <color name="neon_cyan">#2D6A4F</color> <!-- Esmeralda Primario -->
+    <color name="neon_cyan_dark">#1B4332</color>
+    <color name="neon_cyan_light">#D8F3DC</color>
+    <color name="neon_purple">#6C63FF</color> <!-- Acento Azulado -->
+    <color name="bg_primary">#F8F9FA</color> <!-- Fondo Claro -->
+    <color name="bg_secondary">#FFFFFF</color>
+    <color name="bg_card">#FFFFFF</color>
+    <color name="text_primary">#212529</color>
+    <color name="text_secondary">#6C757D</color>
+    <color name="divider">#E9ECEF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+</selector>
