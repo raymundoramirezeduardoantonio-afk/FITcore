@@ -1,194 +1,227 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_primary"
-    android:fitsSystemWindows="true">
+    android:background="@color/bg_primary">
 
-    <!-- Decorative background elements -->
     <View
-        android:id="@+id/topDecorationReg"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:background="@drawable/bg_header_gradient"
-        android:alpha="0.2"
-        android:rotation="135"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="-150dp"
-        android:layout_marginEnd="-150dp" />
+        android:id="@+id/glowFlame"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="-160dp"
+        android:layout_marginEnd="-190dp"
+        android:background="@drawable/bg_glow_flame" />
+
+    <View
+        android:id="@+id/glowViolet"
+        android:layout_width="380dp"
+        android:layout_height="380dp"
+        android:layout_gravity="bottom|start"
+        android:layout_marginStart="-200dp"
+        android:layout_marginBottom="-120dp"
+        android:background="@drawable/bg_glow_violet" />
 
     <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:fillViewport="true"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:fitsSystemWindows="true"
+        android:overScrollMode="never">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="24dp">
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="32dp">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_circle_card"
+                android:contentDescription="Volver"
+                android:src="@drawable/ic_back"
+                android:stateListAnimator="@animator/press_scale"
+                app:tint="@color/text_primary" />
 
             <TextView
                 android:id="@+id/tvRegTitle"
+                style="@style/FitCore.Text.Display"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Crea tu Perfil"
-                android:textColor="@color/text_primary"
-                android:textSize="32sp"
-                android:textStyle="bold"
-                android:layout_marginTop="40dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:layout_marginTop="28dp"
+                android:text="Crea tu\nperfil."
+                android:textSize="48sp" />
 
             <TextView
                 android:id="@+id/tvRegSubtitle"
+                style="@style/FitCore.Text.Body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Únete a la comunidad FITCORE"
-                android:textColor="@color/text_secondary"
-                android:textSize="14sp"
-                android:layout_marginTop="4dp"
-                app:layout_constraintTop_toBottomOf="@id/tvRegTitle"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:layout_marginTop="10dp"
+                android:text="Cuéntanos de ti y armamos rutinas a tu medida." />
 
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/lblAccount"
+                style="@style/FitCore.Text.Label"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                app:cardBackgroundColor="@color/bg_card"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="@color/divider"
-                app:layout_constraintTop_toBottomOf="@id/tvRegSubtitle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="12dp"
+                android:text="Tu cuenta" />
 
-                <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre completo"
+                app:startIconDrawable="@drawable/ic_person">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etRegName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="24dp">
+                    android:inputType="textPersonName|textCapWords"
+                    android:textColor="@color/text_primary" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilRegEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="Correo electrónico"
+                app:startIconDrawable="@drawable/ic_mail">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etRegEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/text_primary" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilRegPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="Contraseña"
+                app:endIconMode="password_toggle"
+                app:startIconDrawable="@drawable/ic_lock">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etRegPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:textColor="@color/text_primary" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/lblBody"
+                style="@style/FitCore.Text.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:layout_marginBottom="12dp"
+                android:text="Tu cuerpo" />
+
+            <LinearLayout
+                android:id="@+id/rowMeasures"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:hint="Altura"
+                    app:startIconDrawable="@drawable/ic_height"
+                    app:suffixText="cm"
+                    app:suffixTextColor="@color/text_secondary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etRegHeight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        app:startIconDrawable="@android:drawable/ic_menu_myplaces">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etRegName"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Nombre completo"
-                            android:textColor="@color/text_primary" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:inputType="number"
+                        android:textColor="@color/text_primary" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:hint="Peso"
+                    app:startIconDrawable="@drawable/ic_scale"
+                    app:suffixText="kg"
+                    app:suffixTextColor="@color/text_secondary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etRegWeight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        app:startIconDrawable="@android:drawable/ic_menu_send">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etRegEmail"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Correo"
-                            android:textColor="@color/text_primary"
-                            android:inputType="textEmailAddress" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:inputType="numberDecimal"
+                        android:textColor="@color/text_primary" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        app:passwordToggleEnabled="true"
-                        app:startIconDrawable="@android:drawable/ic_lock_idle_lock">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etRegPassword"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Contraseña"
-                            android:textColor="@color/text_primary"
-                            android:inputType="textPassword" />
-                    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/toggleRegBodyType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:singleSelection="true">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:orientation="horizontal">
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="8dp"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/etRegHeight"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="Altura (cm)"
-                                android:textColor="@color/text_primary"
-                                android:inputType="number" />
-                        </com.google.android.material.textfield.TextInputLayout>
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/etRegWeight"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="Peso (kg)"
-                                android:textColor="@color/text_primary"
-                                android:inputType="numberDecimal" />
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </LinearLayout>
+                <Button
+                    android:id="@+id/btnRegEcto"
+                    style="@style/FitCore.Button.Segment"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="Ecto" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Tipo de Cuerpo"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="12sp"
-                        android:layout_marginTop="20dp" />
+                <Button
+                    android:id="@+id/btnRegMeso"
+                    style="@style/FitCore.Button.Segment"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="Meso" />
 
-                    <com.google.android.material.button.MaterialButtonToggleGroup
-                        android:id="@+id/toggleRegBodyType"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        app:singleSelection="true">
-                        <Button android:id="@+id/btnRegEcto" style="?attr/materialButtonOutlinedStyle" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Ecto" />
-                        <Button android:id="@+id/btnRegMeso" style="?attr/materialButtonOutlinedStyle" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Meso" />
-                        <Button android:id="@+id/btnRegEndo" style="?attr/materialButtonOutlinedStyle" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Endo" />
-                    </com.google.android.material.button.MaterialButtonToggleGroup>
+                <Button
+                    android:id="@+id/btnRegEndo"
+                    style="@style/FitCore.Button.Segment"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="Endo" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnRegister"
-                        android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:layout_marginTop="32dp"
-                        android:text="CREAR CUENTA"
-                        android:textColor="@color/black"
-                        app:backgroundTint="@color/neon_cyan"
-                        app:cornerRadius="12dp"
-                        android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvBodyTypeHint"
+                style="@style/FitCore.Text.Body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Elige tu biotipo para personalizar el volumen de tus rutinas."
+                android:textSize="13sp" />
 
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRegister"
+                style="@style/FitCore.Button.Primary"
+                android:layout_width="match_parent"
+                android:layout_marginTop="32dp"
+                android:text="Crear cuenta"
+                app:icon="@drawable/ic_arrow_forward"
+                app:iconGravity="end" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
     </ScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

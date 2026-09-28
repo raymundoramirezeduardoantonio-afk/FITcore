@@ -1,39 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Colores base que cambian según el tema -->
-    <color name="neon_cyan">#00E676</color>
-    <color name="neon_cyan_dark">#00C853</color>
-    <color name="neon_cyan_light">#69F0AE</color>
-    <color name="neon_purple">#7986CB</color>
-    <color name="neon_purple_dark">#5C6BC0</color>
+    <!-- Paleta FITCORE: modo oscuro + acento "volt" (lima eléctrico) -->
+    <color name="volt">#D4FF3A</color>
+    <color name="volt_dark">#A8D11A</color>
+    <color name="volt_soft">#1FD4FF3A</color>
+    <color name="volt_glow">#40D4FF3A</color>
+    <color name="violet">#8B5CF6</color>
+    <color name="violet_soft">#268B5CF6</color>
+    <color name="flame">#FF6A3D</color>
+    <color name="flame_soft">#26FF6A3D</color>
+    <color name="sky">#38BDF8</color>
 
-    <!-- Colores específicos del modo claro (por defecto) -->
-    <color name="bg_primary">#F8F9FA</color>
-    <color name="bg_secondary">#FFFFFF</color>
-    <color name="bg_card">#FFFFFF</color>
-    <color name="bg_card_hover">#F1F3F5</color>
-    <color name="text_primary">#212529</color>
-    <color name="text_secondary">#6C757D</color>
-    <color name="text_accent">#00E676</color>
-    <color name="divider">#E9ECEF</color>
-    <color name="ripple">#1100E676</color>
+    <!-- Alias heredados (usados desde Kotlin) -->
+    <color name="neon_cyan">@color/volt</color>
+    <color name="neon_cyan_dark">@color/volt_dark</color>
+    <color name="neon_cyan_light">#E6FF8A</color>
+    <color name="neon_purple">@color/violet</color>
+    <color name="neon_purple_dark">#6D28D9</color>
 
-    <color name="status_bar">#F8F9FA</color>
-    <color name="nav_bar">#FFFFFF</color>
-    <color name="bg_bottom_fade_start">#FFF8F9FA</color>
-    <color name="bg_bottom_fade_end">#00F8F9FA</color>
+    <!-- Superficies -->
+    <color name="bg_primary">#0A0A0D</color>
+    <color name="bg_secondary">#121216</color>
+    <color name="bg_card">#17171C</color>
+    <color name="bg_card_hover">#1F1F26</color>
+    <color name="bg_elevated">#24242C</color>
+    <color name="text_primary">#F5F5F7</color>
+    <color name="text_secondary">#8D8D99</color>
+    <color name="text_tertiary">#5C5C66</color>
+    <color name="text_accent">@color/volt</color>
+    <color name="divider">#26262E</color>
+    <color name="ripple">#33D4FF3A</color>
+    <color name="scrim">#CC0A0A0D</color>
 
-    <!-- Grupos Musculares -->
-    <color name="tag_chest">#00E676</color>
-    <color name="tag_back">#00B0FF</color>
-    <color name="tag_legs">#FF5252</color>
-    <color name="tag_shoulders">#FFAB40</color>
-    <color name="tag_arms">#7C4DFF</color>
-    <color name="tag_core">#F06292</color>
+    <color name="status_bar">#00000000</color>
+    <color name="nav_bar">#00000000</color>
+    <color name="bg_bottom_fade_start">#FF0A0A0D</color>
+    <color name="bg_bottom_fade_end">#000A0A0D</color>
 
-    <color name="difficulty_beginner">#00E676</color>
-    <color name="difficulty_intermediate">#FFD600</color>
-    <color name="difficulty_advanced">#FF1744</color>
+    <!-- Grupos musculares -->
+    <color name="tag_chest">#D4FF3A</color>
+    <color name="tag_back">#38BDF8</color>
+    <color name="tag_legs">#FF5A5F</color>
+    <color name="tag_shoulders">#FFB547</color>
+    <color name="tag_arms">#A78BFA</color>
+    <color name="tag_core">#F472B6</color>
+
+    <color name="difficulty_beginner">#4ADE80</color>
+    <color name="difficulty_intermediate">#FACC15</color>
+    <color name="difficulty_advanced">#FF4D5E</color>
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
