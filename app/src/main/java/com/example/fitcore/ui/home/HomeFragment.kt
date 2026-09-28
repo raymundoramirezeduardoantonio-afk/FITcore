@@ -62,7 +62,8 @@ class HomeFragment : Fragment() {
                     tvStreakHome.text = "${it.streakDays} Días"
                     tvXPHome.text = "${it.xp} XP"
                     
-                    val level = (it.xp / 200) + 1
+                    val levelFromXp = (it.xp / 200) + 1
+                    val level = if (it.level == levelFromXp) it.level else levelFromXp
                     val progress = (it.xp % 200) * 100 / 200
                     val xpRestante = 200 - (it.xp % 200)
                     

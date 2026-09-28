@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fitcore.R
+import com.example.fitcore.agent.RoutineAgents
+import com.example.fitcore.agent.RoutinePlanMode
 import com.example.fitcore.db.AppDatabase
 import com.example.fitcore.db.RoutineEntity
 import com.example.fitcore.db.RoutineExerciseEntity
@@ -162,58 +164,29 @@ class RoutinesFragment : Fragment() {
                 return@launch
             }
 
-            val bodyType = user.bodyType
+            val mode = if (isWeekly) RoutinePlanMode.Weekly else RoutinePlanMode.FullBody
+            val plan = RoutineAgents.create().plan(user, mode)
             val time = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
-            val routineName = if (isWeekly) "Plan Semanal $bodyType ($time)" else "Full-Body $bodyType ($time)"
-            
+
             val routineId = db.routineDao().insertRoutine(
                 RoutineEntity(
-                    userId = user.id, // Vincula la rutina al usuario actual
-                    name = routineName, 
-                    description = "Generada para $bodyType", 
+                    userId = user.id,
+                    name = "${plan.name} ($time)",
+                    description = plan.description,
                     isGenerated = true
                 )
             )
 
-            val (sets, reps, rest) = when(bodyType) {
-                "Ectomorfo" -> Triple(3, 8, 120)
-                "Mesomorfo" -> Triple(4, 10, 90)
-                else -> Triple(4, 15, 45)
-            }
-
-            val exercises = mutableListOf<RoutineExerciseEntity>()
-            
-            if (isWeekly) {
-                // LUNES: Empuje (6 ejercicios)
-                exercises.add(RoutineExerciseEntity(routineId = routineId, exerciseId = 1, sets = sets, reps = reps, restSeconds = rest, orderIndex = 0, dayLabel = "Lunes"))
-                exercises.add(RoutineExerciseEntity(routineId = routineId, exerciseId = 3, sets = sets, reps = reps + 2, restSeconds = rest - 30, orderIndex = 1, dayLabel = "Lunes"))
-                exercises.add(RoutineExerciseEntity(routineId = routineId, exerciseId = 16, sets = sets, reps = reps, restSeconds = rest, orderIndex = 2, dayLabel = "Lunes"))
-                exercises.add(RoutineExerciseEntity(routineId = routineId, exerciseId = 17, sets = sets, reps = reps + 2, restSeconds = rest - 30, orderIndex = 3, dayLabel = "Lunes"))
-                exercises.add(RoutineExerciseEntity(routineId = routineId, exerciseId = 24, sets = sets, reps = reps + 2, restSeconds = rest - 30, orderIndex = 4, dayLabel = "Lunes"))
-                exercises.add(RoutineExerciseEntity(routineId = routineId, exerciseId = 25, sets = sets, reps = reps, restSeconds = rest, orderIndex = 5, dayLabel = "Lunes"))
-                
-                // MIERCOLES: Tracción (6 ejercicios)
-                exercises.add(RoutineExerciseEntity(routineId = routineId, exerciseId = 6, sets = sets, reps = reps - 2, restSeconds = rest + 30, orderIndex = 6, dayLabel = "Miércoles"))
-                exercises.add(RoutineExerciseEntity(routineId = routineId, exerciseId = 9, sets = sets, reps = reps, restSeconds = rest, orderIndex = 7, dayLabel = "Miércoles"))
-                exercises.add(RoutineExerciseEntity(routineId = routineId, exerciseId = 8, sets = sets, reps = reps, restSeconds = rest, orderIndex = 8, dayLabel = "Miércoles"))
-                exercises.add(RoutineExerciseEntity(routineId = routineId, exerciseId = 46, sets = sets, reps = reps + 2, restSeconds = rest - 30, orderIndex = 9, dayLabel = "Miércoles"))
-                exercises.add(RoutineExerciseEntity(routineId = routineId, exerciseId = 21, sets = sets, reps = reps, restSeconds = rest, orderIndex = 10, dayLabel = "Miércoles"))
-                exercises.add(RoutineExerciseEntity(routineId = routineId, exerciseId = 22, sets = sets, reps = reps + 2, restSeconds = rest - 30, orderIndex = 11, dayLabel = "Miércoles"))
-                
-                // VIERNES: Piernas/Core (6 ejercicios)
-                exercises.add(RoutineExerciseEntity(routineId = routineId, exerciseId = 11, sets = sets + 1, reps = reps, restSeconds = rest + 30, orderIndex = 12, dayLabel = "Viernes"))
-                exercises.add(RoutineExerciseEntity(routineId = routineId, exerciseId = 12, sets = sets, reps = reps, restSeconds = rest, orderIndex = 13, dayLabel = "Viernes"))
-                exercises.add(RoutineExerciseEntity(routineId = routineId, exerciseId = 13, sets = sets, reps = reps + 2, restSeconds = rest - 30, orderIndex = 14, dayLabel = "Viernes"))
-                exercises.add(RoutineExerciseEntity(routineId = routineId, exerciseId = 15, sets = sets, reps = reps, restSeconds = rest, orderIndex = 15, dayLabel = "Viernes"))
-                exercises.add(RoutineExerciseEntity(routineId = routineId, exerciseId = 26, sets = 3, reps = 20, restSeconds = 45, orderIndex = 16, dayLabel = "Viernes"))
-                exercises.add(RoutineExerciseEntity(routineId = routineId, exerciseId = 27, sets = 3, reps = 60, restSeconds = 45, orderIndex = 17, dayLabel = "Viernes"))
-            } else {
-                exercises.add(RoutineExerciseEntity(routineId = routineId, exerciseId = 1, sets = sets, reps = reps, restSeconds = rest, orderIndex = 0, dayLabel = "Todo"))
-                exercises.add(RoutineExerciseEntity(routineId = routineId, exerciseId = 6, sets = sets, reps = reps, restSeconds = rest, orderIndex = 1, dayLabel = "Todo"))
-                exercises.add(RoutineExerciseEntity(routineId = routineId, exerciseId = 11, sets = sets, reps = reps, restSeconds = rest, orderIndex = 2, dayLabel = "Todo"))
-                exercises.add(RoutineExerciseEntity(routineId = routineId, exerciseId = 16, sets = sets, reps = reps, restSeconds = rest, orderIndex = 3, dayLabel = "Todo"))
-                exercises.add(RoutineExerciseEntity(routineId = routineId, exerciseId = 21, sets = sets, reps = reps, restSeconds = rest, orderIndex = 4, dayLabel = "Todo"))
-                exercises.add(RoutineExerciseEntity(routineId = routineId, exerciseId = 26, sets = sets, reps = reps, restSeconds = rest, orderIndex = 5, dayLabel = "Todo"))
+            val exercises = plan.exercises.map { planned ->
+                RoutineExerciseEntity(
+                    routineId = routineId,
+                    exerciseId = planned.exerciseId,
+                    sets = planned.sets,
+                    reps = planned.reps,
+                    restSeconds = planned.restSeconds,
+                    orderIndex = planned.orderIndex,
+                    dayLabel = planned.dayLabel
+                )
             }
 
             db.routineDao().insertRoutineExercises(exercises)

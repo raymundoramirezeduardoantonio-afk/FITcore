@@ -39,8 +39,15 @@ class LoginActivity : AppCompatActivity() {
                 val user = db.routineDao().getUserByEmail(email)
 
                 if (user != null && PasswordUtils.verify(password, user.password)) {
+                    val passwordHash = if (PasswordUtils.isLegacyHash(user.password)) {
+                        PasswordUtils.hash(password)
+                    } else {
+                        user.password
+                    }
                     db.routineDao().logoutAll()
-                    db.routineDao().saveUserProfile(user.copy(isLoggedIn = true))
+                    db.routineDao().saveUserProfile(
+                        user.copy(password = passwordHash, isLoggedIn = true)
+                    )
                     startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                     finish()
                 } else {
